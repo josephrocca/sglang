@@ -1741,6 +1741,7 @@ class DeepseekV2ForCausalLM(nn.Module):
                         or global_server_args_dict["enable_ep_moe"]
                     )
                 )
+                and not self.config.quantization_config.get("quant_method", "").startswith("awq")
             ):
                 self.num_fused_shared_experts = self.config.n_shared_experts
                 global_server_args_dict["disable_shared_experts_fusion"] = False
